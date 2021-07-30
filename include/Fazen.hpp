@@ -14,6 +14,12 @@ using std::wstring;
 #define whiteF FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN
 #define whiteB BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_INTENSITY
 #define STOP run = false
+#define AND_IS_HELD  & 0x80) != 0
+#define CHECK_USER_EXIT              \
+    if (GetAsyncKeyState(VK_ESCAPE)) \
+    {                                \
+        break;                       \
+    }
 #define QUICKTRANSLATE \
     x += center_x;     \
     y += center_y;
@@ -59,10 +65,8 @@ protected:
     float center_y = 0;
     float tempCenterx;
     float tempCentery;
-    int consoleRangeStartx = 685;
-    int consoleRangeStarty = 30;
-    // int consoleRangeEndx = 1324;
-    // int consoleRangeEndy = 670;
+    int consoleRangeStartx;
+    int consoleRangeStarty;
     POINT p;
     int fontH;
     int fontW;
@@ -110,13 +114,14 @@ public:
     {
         GetCursorPos(&p);
         GetWindowPos();
-        p.x = mapBounds(p.x, 0, s_width, consoleRangeStartx, consoleRangeStartx + s_width * fontW);
+        p.x = mapBounds(p.x, 0, s_width, consoleRangeStartx, consoleRangeStartx + (s_width - 1) * fontW);
         return p.x;
     }
     float Mouse_Y()
     {
         GetCursorPos(&p);
-        p.y = mapBounds(p.y, 0, s_height, consoleRangeStarty, consoleRangeStarty + s_height * fontH);
+        GetWindowPos();
+        p.y = mapBounds(p.y, 0, s_height, consoleRangeStarty, consoleRangeStarty + (s_height - 1) * fontH);
         return p.y - 3;
     }
 
@@ -271,8 +276,8 @@ public:
         SetConsoleScreenBufferSize(outhnd, buffersize);
 
         SetConsoleMode(inhnd, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
-        fontH=fonth;
-        fontW=fontw;
+        fontH = fonth;
+        fontW = fontw;
     }
 
     const void drawRectangle(float x, float y, int b_width, int b_height, float angle = 0, short col = whiteF)
