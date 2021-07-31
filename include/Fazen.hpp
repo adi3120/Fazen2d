@@ -11,6 +11,9 @@ using std::wstring;
 #define blueB BACKGROUNDGROUND_BLUE | BACKGROUND_INTENSITY
 #define greenF FOREGROUND_GREEN | FOREGROUND_INTENSITY
 #define greenB BACKGROUND_GREEN | BACKGROUND_INTENSITY
+#define dmagentaF 0x0005
+#define magentaF 0x000D
+#define yellowF 0x000E
 #define whiteF FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN
 #define whiteB BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_INTENSITY
 #define STOP run = false
@@ -147,7 +150,7 @@ public:
         }
     }
     //BRESENHAM's LINE ALGO
-    void drawLine(float x2, float y2, float x1, float y1, short col = whiteF)
+    void drawLine(float x2, float y2, float x1, float y1, short col = whiteF,short c = 0x2588)
     {
         float x, y, dx, dy, dx1, dy1, px, py, xe, ye, i;
         dx = x2 - x1;
@@ -171,7 +174,7 @@ public:
                 xe = x1;
             }
 
-            Plot(x, y, col);
+            Plot(x, y, col,c);
 
             for (i = 0; x < xe; i++)
             {
@@ -186,7 +189,7 @@ public:
                         y = y - 1;
                     px = px + 2 * (dy1 - dx1);
                 }
-                Plot(x, y, col);
+                Plot(x, y, col,c);
             }
         }
         else
@@ -204,7 +207,7 @@ public:
                 ye = y1;
             }
 
-            Plot(x, y, col);
+            Plot(x, y, col,c);
 
             for (i = 0; y < ye; i++)
             {
@@ -219,7 +222,7 @@ public:
                         x = x - 1;
                     py = py + 2 * (dx1 - dy1);
                 }
-                Plot(x, y, col);
+                Plot(x, y, col,c);
             }
         }
     }
