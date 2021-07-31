@@ -41,17 +41,10 @@ public:
         }
         return {x, y};
     }
-    vec2 fromAngle(float angle, float len = 1)
+    vec2 fromAngle(float angle)
     {
-        return {len * cosf(angle), len * sinf(angle)};
+        return {cosf(angle),sinf(angle)};
     }
-    void set(float xn, float yn)
-    {
-        this->x = xn;
-        this->y = yn;
-    }
-    static float dist(vec2 a, vec2 b)
-    {
-        return hypotf(b.x - a.x, b.y - a.y);
-    }
+
+
 };
