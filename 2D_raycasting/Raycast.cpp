@@ -8,8 +8,8 @@ void drawLineAsBoundary(Fazen2d game, std::vector<Boundary> &walls)
 {
     float x1 = game.Mouse_X();
     float y1 = game.Mouse_Y();
-    float x2 = rand() % s_width;
-    float y2 = rand() % s_height;
+    float x2 = x1+4+rand()%20;
+    float y2 = y1;
     walls.push_back(Boundary(x1, y1, x2, y2, magentaF));
 
     Sleep(800);
