@@ -1,5 +1,6 @@
-// Colors.h
-#pragma once
+#ifndef COLORS_H
+#define COLORS_H
+
 #include<windows.h>
 
 enum ConsoleColor {
@@ -19,3 +20,5 @@ enum ConsoleColor {
 	whiteF = 0x000F,
 	whiteB = BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_INTENSITY
 };
+
+#endif

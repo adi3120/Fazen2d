@@ -22,3 +22,8 @@ float StateManager::getCenterX(){
 float StateManager::getCenterY(){
 	return center_y;
 }
+
+void StateManager::translateCoordinates(float& x, float& y) {
+        x += getCenterX();
+        y += getCenterY();
+}

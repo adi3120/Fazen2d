@@ -1,4 +1,22 @@
-#include "./ConsoleHandler.h"
+#include "ConsoleHandler.h"
+#include<windows.h>
+void ConsoleHandler::make2DConsole(int fontw = 8, int fonth = 8, LPCTSTR title = (LPCTSTR) "Your Title Here")
+{
+	CONSOLE_FONT_INFOEX fontStructure = {0};
+	fontStructure.cbSize = sizeof(fontStructure);
+	fontStructure.dwFontSize.X = fontw;
+	fontStructure.dwFontSize.Y = fonth;
+	SetConsoleTitle(title);
+
+	SetCurrentConsoleFontEx(outhnd, true, &fontStructure);
+
+	SetConsoleWindowInfo(outhnd, TRUE, &rect_win);
+	SetConsoleScreenBufferSize(outhnd, buffersize);
+
+	SetConsoleMode(inhnd, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+	fontH = fonth;
+	fontW = fontw;
+}
 
 ConsoleHandler::ConsoleHandler(int s_width,int s_height){
 	console_width=s_width;
@@ -34,23 +52,6 @@ void ConsoleHandler::background(short col=0){
 	}
 }
 
-void ConsoleHandler::make2DConsole(int fontw = 8, int fonth = 8, LPCTSTR title = (LPCTSTR) "Your Title Here")
-{
-	CONSOLE_FONT_INFOEX fontStructure = {0};
-	fontStructure.cbSize = sizeof(fontStructure);
-	fontStructure.dwFontSize.X = fontw;
-	fontStructure.dwFontSize.Y = fonth;
-	SetConsoleTitle(title);
-
-	SetCurrentConsoleFontEx(outhnd, true, &fontStructure);
-
-	SetConsoleWindowInfo(outhnd, TRUE, &rect_win);
-	SetConsoleScreenBufferSize(outhnd, buffersize);
-
-	SetConsoleMode(inhnd, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
-	fontH = fonth;
-	fontW = fontw;
-}
 
 POINT ConsoleHandler::Getpoint(){
 	return this->p;

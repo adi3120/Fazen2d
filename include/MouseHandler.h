@@ -1,4 +1,8 @@
-#include<ConsoleHandler.h>
+#ifndef MOUSEHANDLER_H
+#define MOUSEHANDLER_H
+
+#include"./ConsoleHandler.h"
+
 class MouseHandler {
 public:
 	ConsoleHandler& console;
@@ -6,3 +10,5 @@ public:
     float GetMouseX();
     float GetMouseY();
 };
+
+#endif
