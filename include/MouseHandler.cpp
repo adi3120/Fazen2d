@@ -1,6 +1,6 @@
-#include "./MouseHandler.h"
-#include "./ConsoleHandler.h"
-#include "./MathUtils.h"
+#include "headers/MouseHandler.h"
+#include "headers/ConsoleHandler.h"
+#include "headers/MathUtils.h"
 #include<windows.h>
 
 MouseHandler::MouseHandler(ConsoleHandler& console) : console(console){}
@@ -10,7 +10,7 @@ float MouseHandler::GetMouseX()
 	POINT p=console.Getpoint();
 	GetCursorPos(&p);
 	console.GetWindowPos();
-	p.x = MathUtils::Map(p.x, 0,console.console_width, console.GetconsoleRangeStartx(), console.GetconsoleRangeStartx() + (console.console_width - 1) * console.fontW);
+	p.x = MathUtils::Map(p.x, 0,console.GetConsoleWidth(), console.GetconsoleRangeStartx(), console.GetconsoleRangeStartx() + (console.GetConsoleWidth() - 1) * console.GetFontWidth());
 	return p.x;
 }
 float MouseHandler::GetMouseY()
@@ -18,6 +18,6 @@ float MouseHandler::GetMouseY()
 	POINT p=console.Getpoint();
 	GetCursorPos(&p);
 	console.GetWindowPos();
-	p.x = MathUtils::Map(p.x, 0,console.console_height, console.GetconsoleRangeStarty(), console.GetconsoleRangeStarty() + (console.console_height - 1) * console.fontH);
+	p.x = MathUtils::Map(p.x, 0,console.GetConsoleHeight(), console.GetconsoleRangeStarty(), console.GetconsoleRangeStarty() + (console.GetConsoleHeight(), - 1) * console.GetFontHeight());
 	return p.y;
 }

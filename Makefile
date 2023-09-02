@@ -8,7 +8,7 @@ SRC_DIR = include
 OBJ_DIR = include
 
 # Source files and object files
-SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
+SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp) main.cpp
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 # Executable name

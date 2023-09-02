@@ -1,4 +1,4 @@
-#include "ConsoleHandler.h"
+#include "headers/ConsoleHandler.h"
 #include<windows.h>
 void ConsoleHandler::make2DConsole(int fontw = 8, int fonth = 8, LPCTSTR title = (LPCTSTR) "Your Title Here")
 {
@@ -40,19 +40,6 @@ void ConsoleHandler::GetWindowPos(){
 	consoleRangeStarty = y;
 }
 
-void ConsoleHandler::display(){
-	WriteConsoleOutputW(outhnd, buffscreen, buffersize, characterPos, &rect_win);
-}
-
-void ConsoleHandler::background(short col=0){
-	for (int i = 0; i < console_height * console_width; i++)
-	{
-		buffscreen[i].Char.UnicodeChar = ' ';
-		buffscreen[i].Attributes = col;
-	}
-}
-
-
 POINT ConsoleHandler::Getpoint(){
 	return this->p;
 }
@@ -63,4 +50,45 @@ int ConsoleHandler::GetconsoleRangeStartx(){
 
 int ConsoleHandler::GetconsoleRangeStarty(){
 	return this->consoleRangeStarty;
+}
+
+int ConsoleHandler::GetFontHeight() const {
+    return fontH;
+}
+
+int ConsoleHandler::GetFontWidth() const {
+    return fontW;
+}
+
+int ConsoleHandler::GetConsoleWidth() const {
+    return console_width;
+}
+
+int ConsoleHandler::GetConsoleHeight() const {
+    return console_height;
+}
+
+HANDLE ConsoleHandler::GetOutHandle() const {
+    return outhnd;
+}
+
+HANDLE ConsoleHandler::GetInHandle() const {
+    return inhnd;
+}
+
+SMALL_RECT* ConsoleHandler::GetRectWin() {
+	SMALL_RECT* r=&rect_win;
+    return r;
+}
+
+COORD ConsoleHandler::GetCharacterPos() const {
+    return characterPos;
+}
+
+COORD ConsoleHandler::GetBufferSize() const {
+    return buffersize;
+}
+
+CHAR_INFO* ConsoleHandler::GetBuffScreen() const {
+    return buffscreen;
 }

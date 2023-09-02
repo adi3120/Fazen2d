@@ -1,4 +1,4 @@
-#include "MathUtils.h"
+#include "headers/MathUtils.h"
 
 MathUtils::MathUtils(StateManager& stateManager): stateManager(stateManager){}
 

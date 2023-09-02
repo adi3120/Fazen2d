@@ -5,17 +5,21 @@
 #include "StateManager.h"
 #include "ConsoleHandler.h"
 #include "MathUtils.h"
-#include "Plotter.h"
 #include "Colors.h"
 #include "MouseHandler.h"
+#include "KeyboardHandler.h"
+#include "GraphicsRenderer.h"
+#include "TimeManager.h"
 
 class Fazen
 {
 public:
 	ConsoleHandler console;
 	StateManager stateManager;
-	Plotter plotter;
 	MouseHandler mouseHandler;
+	GraphicsRenderer graphics;
+	KeyboardHandler keyboardHandler;
+	TimeManager timer;
 	Fazen(int s_width, int s_height);
 };
 
