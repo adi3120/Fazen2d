@@ -1,0 +1,9 @@
+Console Handler
+	HANDLE outhnd;
+	HANDLE inhnd;
+	SMALL_RECT rect_win;
+	CHAR_INFO *buffscreen = new CHAR_INFO[s_width * s_height];
+	COORD characterPos = {0, 0};
+	COORD buffersize = {short(s_width), short(s_height)};
+Graphics renderer
+State manager
