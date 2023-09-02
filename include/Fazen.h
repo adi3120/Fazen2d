@@ -4,155 +4,17 @@
 #include <vector>
 #include <chrono>
 #include <cmath>
+#include<ConsoleHandler.h>
+#include<StateManager.h>
 using std::wstring;
-#define redF FOREGROUND_RED | FOREGROUND_INTENSITY
-#define redB BACKGROUND_RED | BACKGROUND_INTENSITY
-#define blueF FOREGROUND_BLUE | FOREGROUND_INTENSITY
-#define blueB BACKGROUNDGROUND_BLUE | BACKGROUND_INTENSITY
-#define greenF FOREGROUND_GREEN | FOREGROUND_INTENSITY
-#define greenB BACKGROUND_GREEN | BACKGROUND_INTENSITY
-#define dmagentaF 0x0005
-#define magentaF 0x000D
-#define yellowF 0x000E
-#define dyellowF 0x0006
-#define dredF 0x0004
-#define greyF 0x0008
-#define dgreenF 0x0002
-#define whiteF 0x000F
-#define whiteB BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_INTENSITY
-#define STOP run = false
-#define AND_IS_HELD  & 0x80) != 0
-#define CHECK_USER_EXIT              \
-	if (GetAsyncKeyState(VK_ESCAPE)) \
-	{                                \
-		break;                       \
-	}
-#define QUICKTRANSLATE \
-	x += center_x;     \
-	y += center_y;
-#define TIMER                                             \
-	tp2 = std::chrono::system_clock::now();               \
-	std::chrono::duration<float> elapsedTime = tp2 - tp1; \
-	tp1 = tp2;                                            \
-	float felapsedTime = elapsedTime.count();
-#define TIMEVARS                                 \
-	auto tp1 = std::chrono::system_clock::now(); \
-	auto tp2 = std::chrono::system_clock::now();
-
 const float pi = 3.141592653589793238;
-// if some error related to console_font_infoEx occurs comment this part till the last #endif//
-//  typedef struct _CONSOLE_FONT_INFOEX
-//  {
-//      ULONG cbSize;
-//      DWORD nFont;
-//      COORD dwFontSize;
-//      UINT FontFamily;
-//      UINT FontWeight;
-//      WCHAR FaceName[LF_FACESIZE];
-//  } CONSOLE_FONT_INFOEX, *PCONSOLE_FONT_INFOEX;
-
-// #ifdef __cplusplus
-// extern "C"
-// {
-// #endif
-//     BOOL WINAPI SetCurrentConsoleFontEx(HANDLE hConsoleOutput, BOOL bMaximumWindow, PCONSOLE_FONT_INFOEX lpConsoleCurrentFontEx);
-// #ifdef __cplusplus
-// }
-// #endif
 class Fazen
 {
-protected:
-	HANDLE outhnd;
-	HANDLE inhnd;
-	SMALL_RECT rect_win;
-	CHAR_INFO *buffscreen = new CHAR_INFO[s_width * s_height];
-	COORD characterPos = {0, 0};
-	COORD buffersize = {short(s_width), short(s_height)};
-	float center_x = 0;
-	float center_y = 0;
-	float tempCenterx;
-	float tempCentery;
-	int consoleRangeStartx;
-	int consoleRangeStarty;
-	POINT p;
-	int fontH;
-	int fontW;
-
+private:
+	ConsoleHandler console;	
 public:
-	Fazen()
-	{
-		outhnd = GetStdHandle(STD_OUTPUT_HANDLE);
-		inhnd = GetStdHandle(STD_INPUT_HANDLE);
-
-		rect_win = {0, 0, (short)(s_width - 1), short(s_height - 1)};
-
-		// Enable the window and mouse input events.
-	}
-
-	void push()
-	{
-		tempCenterx = center_x;
-		tempCentery = center_y;
-	}
-	void pop()
-	{
-		center_x = tempCenterx;
-		center_y = tempCentery;
-	}
-	float mapBounds(float value, float x1, float x2, float y1, float y2)
-	{
-		float m = (y2 - y1) / (x2 - x1);
-		float b = y1 - m * x1;
-		value = (value - b) / m;
-		return value;
-	}
-	void GetWindowPos()
-	{
-		int x;
-		int y;
-		RECT rect = {};
-		GetWindowRect(GetConsoleWindow(), &rect);
-		x = rect.left;
-		y = rect.top;
-		consoleRangeStartx = x;
-		consoleRangeStarty = y;
-	}
-	float Mouse_X()
-	{
-		GetCursorPos(&p);
-		GetWindowPos();
-		p.x = mapBounds(p.x, 0, s_width, consoleRangeStartx, consoleRangeStartx + (s_width - 1) * fontW);
-		return p.x;
-	}
-	float Mouse_Y()
-	{
-		GetCursorPos(&p);
-		GetWindowPos();
-		p.y = mapBounds(p.y, 0, s_height, consoleRangeStarty, consoleRangeStarty + (s_height - 1) * fontH);
-		return p.y - 3;
-	}
-
-	const void display()
-	{
-		WriteConsoleOutputW(outhnd, buffscreen, buffersize, characterPos, &rect_win);
-	}
-	const void background(short col = 0)
-	{
-		for (int i = 0; i < s_height * s_width; i++)
-		{
-			buffscreen[i].Char.UnicodeChar = ' ';
-			buffscreen[i].Attributes = col;
-		}
-	}
-	const void Plot(float x, float y, short col = whiteF, short c = 0x2588)
-	{
-		QUICKTRANSLATE
-		if (x > 1 && x < s_width - 1 && y > 1 && y < s_height - 1)
-		{
-			buffscreen[int(x) + s_width * int(y)].Char.UnicodeChar = c;
-			buffscreen[int(x) + s_width * int(y)].Attributes = col;
-		}
-	}
+	Fazen(CHAR_INFO* buffscreen, int fontH, int fontW);
+	
 	// BRESENHAM's LINE ALGO
 	void drawLine(float x2, float y2, float x1, float y1, short col = whiteF, short c = 0x2588)
 	{
@@ -267,25 +129,7 @@ public:
 class Fazen2d : public Fazen
 {
 public:
-	const void make2DConsole(int fontw = 8, int fonth = 8, LPCTSTR title = (LPCTSTR) "Your Title Here")
-	{
-
-		CONSOLE_FONT_INFOEX fontStructure = {0};
-		fontStructure.cbSize = sizeof(fontStructure);
-		fontStructure.dwFontSize.X = fontw;
-		fontStructure.dwFontSize.Y = fonth;
-		SetConsoleTitle(title);
-
-		SetCurrentConsoleFontEx(outhnd, true, &fontStructure);
-
-		SetConsoleWindowInfo(outhnd, TRUE, &rect_win);
-		SetConsoleScreenBufferSize(outhnd, buffersize);
-
-		SetConsoleMode(inhnd, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
-		fontH = fonth;
-		fontW = fontw;
-	}
-
+	
 	const void drawRectangle(float x, float y, int b_width, int b_height, float angle = 0, short col = whiteF,int border=0,short bordCol=greenF)
 	{
 		// float tempx;
