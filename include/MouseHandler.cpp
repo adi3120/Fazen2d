@@ -18,6 +18,6 @@ float MouseHandler::GetMouseY()
 	POINT p=console.Getpoint();
 	GetCursorPos(&p);
 	console.GetWindowPos();
-	p.x = MathUtils::Map(p.x, 0,console.GetConsoleHeight(), console.GetconsoleRangeStarty(), console.GetconsoleRangeStarty() + (console.GetConsoleHeight(), - 1) * console.GetFontHeight());
+	p.y = MathUtils::Map(p.y, 0,console.GetConsoleHeight(), console.GetconsoleRangeStarty(), console.GetconsoleRangeStarty() + (console.GetConsoleHeight() - 1) * console.GetFontHeight());
 	return p.y;
 }

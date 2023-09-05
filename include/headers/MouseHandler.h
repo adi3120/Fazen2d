@@ -4,8 +4,9 @@
 #include"./ConsoleHandler.h"
 
 class MouseHandler {
-public:
+private:
 	ConsoleHandler& console;
+public:
     MouseHandler(ConsoleHandler& console); 
     float GetMouseX();
     float GetMouseY();

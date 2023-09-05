@@ -7,9 +7,11 @@ int main(){
 
 	while(true){
 		game.graphics.background(whiteB);
-		game.graphics.drawCircle(50,50,10,blueF);
+		float mouseX = game.mouseHandler.GetMouseX();
+        float mouseY = game.mouseHandler.GetMouseY();
+		game.graphics.drawCircle(mouseX,mouseY,6,blueF);
 		game.graphics.display();
-		if(game.keyboardHandler.CheckForUserExit()){
+		if(game.keyboardHandler.CheckForUserExit()==true){
 			break;
 		}
 	}
