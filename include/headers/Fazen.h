@@ -13,6 +13,7 @@
 #include "TextRenderer.h"
 #include "Circle.h"
 #include "Point.h"
+#include "Line.h"
 
 class Fazen
 {

@@ -1,6 +1,5 @@
 #ifndef GRAPHICSRENDERER_H
 #define GRAPHICSRENDERER_H
-#include "StateManager.h"
 #include "Shape.h"
 class GraphicsRenderer{
 	public:

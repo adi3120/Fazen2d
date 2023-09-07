@@ -3,25 +3,18 @@
 
 class StateManager {
 private:
-	float center_x;
-    float center_y;
-    float tempCenterx;
-    float tempCentery;
+	static float center_x;
+    static float center_y;
+    static float tempCenterx;
+    static float tempCentery;
 
 public:
-	static StateManager instance;
-	void saveState();
-    void restoreState();
-    void setCenter(float x, float y);
-    float getCenterX();
-    float getCenterY();
-	void translateCoordinates(float& x, float& y);
-
-	void initialize(int width,int height);
-
-	static StateManager getInstance() {
-    	return instance;
-	}
+	static void saveState();
+    static void restoreState();
+    static void setCenter(float x, float y);
+    static float getCenterX();
+    static float getCenterY();
+	static void translateCoordinates(float& x, float& y);
 };
 
 #endif

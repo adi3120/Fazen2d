@@ -6,6 +6,8 @@ int main(){
 		game.graphics.background(whiteB);
 		Circle c(game.mouseHandler.GetMouseX(),game.mouseHandler.GetMouseY(),10,magentaF|whiteB,'%');
 		game.graphics.drawShape(c);
+		Line l(game.mouseHandler.GetMouseY(),game.mouseHandler.GetMouseX(),game.mouseHandler.GetMouseX(),game.mouseHandler.GetMouseY(),redB,'#');
+		game.graphics.drawShape(l);
 		game.graphics.display();
 		if(game.keyboardHandler.CheckForUserExit()==true){
 			break;

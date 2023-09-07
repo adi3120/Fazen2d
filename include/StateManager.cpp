@@ -1,5 +1,10 @@
 #include "headers/StateManager.h"
 
+float StateManager::center_x=0;
+float StateManager::center_y=0;
+float StateManager::tempCenterx=0;
+float StateManager::tempCentery=0;
+
 void StateManager::saveState() {
 	tempCenterx = center_x;
 	tempCentery = center_y;
