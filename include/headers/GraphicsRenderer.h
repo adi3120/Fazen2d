@@ -5,7 +5,7 @@ class GraphicsRenderer{
 	public:
 		void display();
 		void background(short col);
-		void drawShape(Shape& s);
+		void draw(Shape& s);
 };
 
 #endif

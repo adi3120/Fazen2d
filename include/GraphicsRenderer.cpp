@@ -19,6 +19,6 @@ void GraphicsRenderer::background(short col=0){
 		ConsoleHandler::GetBuffScreen()[i].Attributes = col;
 	}
 }
-void GraphicsRenderer::drawShape(Shape& s){
+void GraphicsRenderer::draw(Shape& s){
 	s.draw();
 }
