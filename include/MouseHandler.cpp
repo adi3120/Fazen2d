@@ -20,3 +20,24 @@ float MouseHandler::GetMouseY()
 	p.y = MathUtils::Map(p.y, 0,ConsoleHandler::GetConsoleHeight(), ConsoleHandler::GetconsoleRangeStarty(), ConsoleHandler::GetconsoleRangeStarty() + (ConsoleHandler::GetConsoleHeight() - 1) * ConsoleHandler::GetFontHeight());
 	return p.y;
 }
+void MouseHandler::UpdateMouseState()
+{
+	leftButtonPressed = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
+	rightButtonPressed = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
+}
+bool MouseHandler::IsLeftMousePressed()
+{
+	return leftButtonPressed;
+}
+bool MouseHandler::IsRightMousePressed()
+{
+	return rightButtonPressed;
+}
+bool MouseHandler::IsLeftMouseClicked()
+{
+	return leftButtonPressed && !IsLeftMousePressed();
+}
+bool MouseHandler::IsRightMouseClicked()
+{
+	return rightButtonPressed && !IsRightMousePressed();
+}
