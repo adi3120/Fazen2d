@@ -3,21 +3,20 @@
 #include "headers/MathUtils.h"
 #include<windows.h>
 
-MouseHandler::MouseHandler(ConsoleHandler& console) : console(console){}
 
 float MouseHandler::GetMouseX()
 {
-	POINT p=console.Getpoint();
+	POINT p=ConsoleHandler::Getpoint();
 	GetCursorPos(&p);
-	console.GetWindowPos();
-	p.x = MathUtils::Map(p.x, 0,console.GetConsoleWidth(), console.GetconsoleRangeStartx(), console.GetconsoleRangeStartx() + (console.GetConsoleWidth() - 1) * console.GetFontWidth());
+	ConsoleHandler::GetWindowPos();
+	p.x = MathUtils::Map(p.x, 0,ConsoleHandler::GetConsoleWidth(), ConsoleHandler::GetconsoleRangeStartx(), ConsoleHandler::GetconsoleRangeStartx() + (ConsoleHandler::GetConsoleWidth() - 1) * ConsoleHandler::GetFontWidth());
 	return p.x;
 }
 float MouseHandler::GetMouseY()
 {
-	POINT p=console.Getpoint();
+	POINT p=ConsoleHandler::Getpoint();
 	GetCursorPos(&p);
-	console.GetWindowPos();
-	p.y = MathUtils::Map(p.y, 0,console.GetConsoleHeight(), console.GetconsoleRangeStarty(), console.GetconsoleRangeStarty() + (console.GetConsoleHeight() - 1) * console.GetFontHeight());
+	ConsoleHandler::GetWindowPos();
+	p.y = MathUtils::Map(p.y, 0,ConsoleHandler::GetConsoleHeight(), ConsoleHandler::GetconsoleRangeStarty(), ConsoleHandler::GetconsoleRangeStarty() + (ConsoleHandler::GetConsoleHeight() - 1) * ConsoleHandler::GetFontHeight());
 	return p.y;
 }

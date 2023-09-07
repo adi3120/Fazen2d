@@ -10,17 +10,22 @@
 #include "KeyboardHandler.h"
 #include "GraphicsRenderer.h"
 #include "TimeManager.h"
+#include "TextRenderer.h"
+#include "Circle.h"
+#include "Point.h"
 
 class Fazen
 {
+
 public:
 	ConsoleHandler console;
-	StateManager stateManager;
-	MouseHandler mouseHandler;
 	GraphicsRenderer graphics;
 	KeyboardHandler keyboardHandler;
 	TimeManager timer;
+	TextRenderer textRenderer;
+	MouseHandler mouseHandler;
 	Fazen(int s_width, int s_height);
 };
 
 #endif
+

@@ -1,0 +1,176 @@
+#ifndef COLORS_H
+#define COLORS_H
+
+#include<windows.h>
+
+enum ConsoleColor {
+	redF = FOREGROUND_RED | FOREGROUND_INTENSITY,
+	redB = BACKGROUND_RED | BACKGROUND_INTENSITY,
+	blueF = FOREGROUND_BLUE | FOREGROUND_INTENSITY,
+	blueB = BACKGROUND_BLUE | BACKGROUND_INTENSITY,
+	greenF = FOREGROUND_GREEN | FOREGROUND_INTENSITY,
+	greenB = BACKGROUND_GREEN | BACKGROUND_INTENSITY,
+	dmagentaF = 0x0005,
+	magentaF = 0x000D,
+	yellowF = 0x000E,
+	dyellowF = 0x0006,
+	dredF = 0x0004,
+	greyF = 0x0008,
+	dgreenF = 0x0002,
+	whiteF = 0x000F,
+	whiteB = BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_INTENSITY
+};
+
+#endif
+
+#ifndef CONSOLEHANDLER_H
+#define CONSOLEHANDLER_H
+#include <windows.h>
+
+class ConsoleHandler
+{
+private:
+	HANDLE outhnd;
+	HANDLE inhnd;
+	SMALL_RECT rect_win;
+	COORD characterPos;
+	COORD buffersize;
+	int consoleRangeStartx;
+	int consoleRangeStarty;
+	POINT p;
+	CHAR_INFO *buffscreen;
+	int fontH;
+	int fontW;
+	int console_width;
+	int console_height;
+
+public:
+	ConsoleHandler(int s_width, int s_height);
+	void GetWindowPos();
+
+	void make2DConsole(int fontw, int fonth, LPCTSTR title);
+	POINT Getpoint();
+	int GetconsoleRangeStartx();
+	int GetconsoleRangeStarty();
+
+	int GetFontHeight() const;		  // Getter for fontH
+	int GetFontWidth() const;		  // Getter for fontW
+	int GetConsoleWidth() const;	  // Getter for console_width
+	int GetConsoleHeight() const;	  // Getter for console_height
+	HANDLE GetOutHandle() const;	  // Getter for outhnd
+	HANDLE GetInHandle() const;		  // Getter for inhnd
+	SMALL_RECT* GetRectWin();	  	  // Getter for rect_win
+	COORD GetCharacterPos() const;	  // Getter for characterPos
+	COORD GetBufferSize() const;	  // Getter for buffersize
+	CHAR_INFO *GetBuffScreen() const; // Getter for buffscreen
+};
+
+#endif
+
+#ifndef GRAPHICSRENDERER_H
+#define GRAPHICSRENDERER_H
+#include "ConsoleHandler.h"
+#include "StateManager.h"
+class GraphicsRenderer{
+	private:
+		ConsoleHandler& console;
+		StateManager& stateManager;
+	public:
+		GraphicsRenderer(ConsoleHandler& console,StateManager& stateManager);
+		void display();
+		void background(short col);
+		void Plot(float x, float y, short col, short c);
+		void drawLine(float x2, float y2, float x1, float y1, short col, short c);
+		void drawRectangle(float x, float y, int b_width, int b_height, float angle, short col);
+		void drawCircle(float xc, float yc, float r, short innerCol);
+};
+
+#endif
+
+#ifndef KEYBOARDHANDLER_H
+#define KEYBOARDHANDLER_H
+
+#include <windows.h>
+
+class KeyboardHandler
+{
+public:
+	bool IsKeyPressed(int keyCode);
+	bool IsKeyReleased(int keyCode);
+	bool CheckForUserExit();
+};
+
+#endif
+
+#ifndef MATHUTILS_H
+#define MATHUTILS_H
+
+#include"StateManager.h"
+
+class MathUtils {
+private:
+    StateManager& stateManager;
+public:
+	MathUtils(StateManager& stateManager);
+	static constexpr double pi = 3.141592653589793238;
+    static float Map(float value, float x1, float x2, float y1, float y2);
+	static void translateCoordinates(float& x, float& y);
+};
+#endif
+
+#ifndef STATEMANAGER_H
+#define STATEMANAGER_H
+
+class StateManager {
+private:
+	float center_x;
+    float center_y;
+    float tempCenterx;
+    float tempCentery;
+
+public:
+	void saveState();
+    void restoreState();
+    void setCenter(float x, float y);
+    float getCenterX();
+    float getCenterY();
+	void translateCoordinates(float& x, float& y);
+};
+
+#endif
+
+#ifndef TEXTRENDERER_H
+#define TEXTRENDERER_H
+#include <sstream>
+#include <string>
+#include "ConsoleHandler.h"
+#include "StateManager.h"
+using std::wstring;
+
+class TextRenderer
+{
+private:
+	ConsoleHandler& console;
+	StateManager& stateManager;
+public:
+	TextRenderer(ConsoleHandler &console,StateManager& stateManager);
+	void drawTextFromInt(float x, float y, wstring s, int b, short col);
+	void Text(float x, float y, wstring a, short col);
+};
+
+#endif
+
+#ifndef TIMEMANAGER_H
+#define TIMEMANAGER_H
+#include <chrono>
+
+class TimeManager {
+private:
+    std::chrono::time_point<std::chrono::system_clock> tp1;
+    std::chrono::time_point<std::chrono::system_clock> tp2;
+public:
+    TimeManager();
+    void Reset();
+    float GetElapsedTime();
+};
+#endif
