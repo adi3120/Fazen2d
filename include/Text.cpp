@@ -53,6 +53,6 @@ void Text::draw(){
 	for (size_t i = 0; i < this->value.size(); i++)
 	{
 		ConsoleHandler::GetBuffScreen()[(int)(x + i + ConsoleHandler::GetConsoleWidth() * y)].Char.UnicodeChar = this->value[i];
-		ConsoleHandler::GetBuffScreen()[(int)(x + i + ConsoleHandler::GetFontWidth() * y)].Attributes = color;
+		ConsoleHandler::GetBuffScreen()[(int)(x + i + ConsoleHandler::GetConsoleWidth() * y)].Attributes = color;
 	}
 }

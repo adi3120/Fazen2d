@@ -8,7 +8,7 @@ int main(){
 		game.graphics.draw(c);
 		Line l(game.mouseHandler.GetMouseY(),game.mouseHandler.GetMouseX(),game.mouseHandler.GetMouseX(),game.mouseHandler.GetMouseY(),redB,'#');
 		game.graphics.draw(l);
-		Text t(50,50,L"Aditya",redB);
+		Text t(50,50,100,whiteB|greenF);
 		game.graphics.draw(t);
 		game.graphics.display();
 		if(game.keyboardHandler.CheckForUserExit()==true){
