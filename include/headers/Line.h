@@ -11,7 +11,7 @@ private:
 	short color;
 	short character;
 public:
-	Line(float x1,float y1,float x2,float y2,short color,short character);
+	Line(float x1,float y1,float x2,float y2,short color,short character=0x2588);
 	void setX1(float x1);
 	void setY1(float x1);
 	void setX2(float x1);

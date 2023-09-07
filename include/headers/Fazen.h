@@ -14,6 +14,7 @@
 #include "Point.h"
 #include "Line.h"
 #include "Text.h"
+#include "Box.h"
 
 class Fazen
 {

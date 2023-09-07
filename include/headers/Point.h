@@ -8,7 +8,7 @@ class Point:public Shape{
 		short color;
 		short character;
 	public:
-		explicit Point(float x,float y,short color,short character);
+		explicit Point(float x,float y,short color,short character=0x2588);
 		void setPosX(float x);
 		void setPosY(float y);
 		void setColor(short color);

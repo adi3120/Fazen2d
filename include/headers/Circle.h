@@ -10,7 +10,7 @@ class Circle:public Shape{
 		short color;
 		short character;
 	public:
-		explicit Circle(float xc,float yc,float radius,short color,short character);
+		explicit Circle(float xc,float yc,float radius,short color,short character=0x2588);
 		void setRadius(float radius);
 		void setCenterX(float xc);
 		void setCenterY(float yc);

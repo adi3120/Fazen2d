@@ -21,4 +21,20 @@ enum ConsoleColor {
 	whiteB = BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_INTENSITY
 };
 
+class Color{
+	private:
+		short fgColor;
+		short bgColor;
+		short value;
+	public:
+		Color(short fgColor=0,short bgColor=whiteB);
+		void setFgColor(short fgColor);
+		void setBgColor(short bgColor);
+		void setValue(short value);
+		short getFgColor();
+		short getBgColor();
+		short getValue();
+
+};	
+
 #endif
