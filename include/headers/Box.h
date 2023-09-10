@@ -26,5 +26,6 @@ public:
 	float getWidth();
 	float getHeight();
 	void draw() override;
+	void translate(float dx,float dy) override;
 };
 #endif

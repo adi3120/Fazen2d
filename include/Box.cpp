@@ -69,3 +69,12 @@ void Box::draw(){
 		}
 	}
 }
+
+void Box::translate(float dx,float dy){
+	float nx=this->x+dx;
+	float ny=this->y+dy;
+	if((nx>=0 && ny>=0) && ((nx+this->width)<ConsoleHandler::GetConsoleWidth() && (ny+this->height)<ConsoleHandler::GetConsoleHeight())){
+		this->x=nx;
+		this->y=ny;
+	}
+}

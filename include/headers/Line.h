@@ -24,7 +24,8 @@ public:
 	float getY2();
 	float getColor();
 	float getCharacter();
-	void draw();
+	void draw() override;
+	void translate(float dx,float dy) override;
 };
 
 #endif

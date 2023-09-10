@@ -42,3 +42,12 @@ void Point::draw(){
 		ConsoleHandler::GetBuffScreen()[int(x) + ConsoleHandler::GetConsoleWidth() * int(y)].Attributes = color;
 	}
 }
+
+void Point::translate(float dx,float dy){
+	float nx=this->x+dx;
+	float ny=this->y+dy;
+	if((nx>=0 && ny>=0) && (nx<ConsoleHandler::GetConsoleWidth() && ny<ConsoleHandler::GetConsoleHeight())){
+		this->x=nx;
+		this->y=ny;
+	}
+}

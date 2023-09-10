@@ -123,3 +123,20 @@ void Line::draw(){
 		}
 	}
 }
+
+void Line::translate(float dx,float dy){
+	float nx1=this->x1+dx;
+	float ny1=this->y1+dy;
+	float nx2=this->x2+dy;
+	float ny2=this->y2+dy;
+	if((nx1>=0 && ny1>=0) && (nx2>=0 && ny2>=0)){
+		if(nx1<ConsoleHandler::GetConsoleWidth() && nx2<ConsoleHandler::GetConsoleWidth()){
+			if(ny1<ConsoleHandler::GetConsoleHeight() && ny1<ConsoleHandler::GetConsoleHeight()){
+				this->x1=nx1;
+				this->x2=nx2;
+				this->y1=ny1;
+				this->y2=ny2;
+			}
+		}
+	}
+}

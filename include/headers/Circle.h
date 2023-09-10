@@ -22,6 +22,7 @@ class Circle:public Shape{
 		float getColor();
 		float getCharacter();
 		void draw() override;
+		void translate(float dx,float dy) override;
 };
 
 #endif

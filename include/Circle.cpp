@@ -58,3 +58,12 @@ void Circle::draw() {
 		}
 	}
 }
+
+void Circle::translate(float dx,float dy){
+	float nx=this->xc+dx;
+	float ny=this->yc+dy;
+	if((nx>=this->radius && ny>=this->radius) && ((nx+this->radius)<ConsoleHandler::GetConsoleWidth() && (ny+this->radius)<ConsoleHandler::GetConsoleHeight())){
+		this->xc=nx;
+		this->yc=ny;
+	}
+}
